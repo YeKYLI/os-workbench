@@ -7,6 +7,12 @@ QEMU_FLAGS += -serial mon:stdio \
               -smp "$(smp),cores=$(smp),sockets=1" \
               -drive format=raw,file=$(IMAGE)
 
+DEBUG_FLAGS += -serial mon:stdio \
+			  -s -S \
+              -machine accel=tcg \
+              -smp "$(smp),cores=$(smp),sockets=1" \
+              -drive format=raw,file=$(IMAGE)
+			  
 build-arg: image
 	@( echo -n $(mainargs); ) | dd if=/dev/stdin of=$(IMAGE) bs=512 count=2 seek=1 conv=notrunc status=none
 
